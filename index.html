@@ -3,60 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D2 SALE - Công cụ áp mã Shopee</title>
+    <title>SALESOC.VN - Hệ Thống Áp Mã Giảm Giá</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        shopee: '#ee4d2d',
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="bg-slate-50 min-h-screen flex flex-col items-center justify-center p-4" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 16px 16px;">
+<body class="bg-[#0f1319] text-slate-200 min-h-screen flex flex-col items-center p-4 font-sans">
 
-    <div class="w-full max-w-md bg-white rounded-3xl p-6 shadow-sm border border-slate-100 relative">
-        
-        <div class="flex justify-between items-center mb-6">
-            <div class="flex items-center gap-2">
-                <div class="bg-blue-600 text-white font-bold p-2 rounded-lg text-xs tracking-wider">SALE</div>
-                <span class="font-bold text-slate-700 text-lg">Mở Nhanh Mã</span>
-            </div>
-            <span class="text-orange-500 bg-orange-50 text-xs px-3 py-1 rounded-full border border-orange-200 font-medium">⚡ 1 link / lần</span>
+    <div class="w-full max-w-md mt-4">
+        <div class="flex items-center justify-between mb-5">
+            <h1 class="text-xl font-black tracking-wider text-white flex items-center gap-1">
+                🔥 <span class="text-amber-500">SALE</span>SOC.VN
+            </h1>
+            <button class="text-slate-400 p-2 border border-slate-800 rounded-xl text-sm">☰</button>
         </div>
 
-        <div class="p-[2px] rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-500 to-blue-500">
-            <div class="bg-white p-4 rounded-[14px] flex flex-col gap-3">
-                
+        <div class="bg-[#161c24] rounded-2xl p-5 border border-slate-800/80 shadow-xl mb-4">
+            <div class="flex items-start gap-3 bg-red-950/20 border border-red-900/30 p-3 rounded-xl mb-4">
+                <span class="text-xl mt-0.5">🎮</span>
+                <div class="text-xs">
+                    <p class="font-bold text-red-400 uppercase tracking-wide">Áp Mã Giảm Giá</p>
+                    <p class="text-slate-400 mt-1">Khung giờ back mã m9: 0-9-12-15-18-20.</p>
+                    <p class="text-amber-500 font-medium mt-0.5">👉 Bấm vào đây để tham gia cộng đồng săn sale</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 bg-[#1e2633] border border-slate-800 px-3 py-1 rounded-full w-max text-[11px] text-green-400 mb-5">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Server sẵn sàng
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 bg-[#1e2633] p-1 rounded-xl mb-5 border border-slate-800/50">
+                <button class="bg-[#161c24] text-amber-500 text-xs font-bold py-2 rounded-lg border border-slate-800">Đơn lẻ</button>
+                <button class="text-slate-400 text-xs font-medium py-2 rounded-lg">Lịch sử</button>
+            </div>
+
+            <div class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Link sản phẩm Shopee</label>
-                    <input type="text" id="shopee-link" placeholder="https://shopee.vn/..." class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:border-purple-500 text-sm">
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase mb-2 tracking-wider">Link sản phẩm Shopee</label>
+                    <div class="relative flex items-center">
+                        <input type="text" id="input-url" placeholder="https://s.shopee.vn/..." class="w-full bg-[#1e2633] border border-slate-800 rounded-xl pl-4 pr-16 py-3.5 text-sm text-white focus:outline-none focus:border-amber-500 placeholder-slate-600">
+                        <button onclick="pasteClipboard()" class="absolute right-2 bg-amber-500 text-neutral-950 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-amber-600 transition">Dán</button>
+                    </div>
                 </div>
 
-                <button onclick="pasteLink()" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-medium py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-sm">
-                    📋 Dán sản phẩm
-                </button>
-
-                <button onclick="processLink()" class="w-full bg-gradient-to-r from-orange-300 to-pink-300 hover:opacity-90 text-slate-700 font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
-                    🔗 Mở áp mã nhanh
-                </button>
-
-                <button onclick="copyLink()" class="w-full bg-slate-50 hover:bg-slate-100 text-slate-400 font-medium py-3 rounded-xl transition flex items-center justify-center gap-2 border border-slate-100">
-                    📄 Sao chép link
+                <button onclick="getLinkAndVouchers()" id="btn-submit" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:opacity-95 text-neutral-950 font-black py-3.5 rounded-xl text-sm transition shadow-lg shadow-orange-600/10 flex items-center justify-center gap-1">
+                    🛒 Lấy link
                 </button>
             </div>
         </div>
-    </div>
 
-    <div class="mt-6 bg-white/80 backdrop-blur px-5 py-2 rounded-full shadow-sm border border-slate-100 text-sm text-slate-600">
-        🔥 Đã có <span class="font-bold text-purple-600" id="count-link">1,563</span> link được tạo hôm nay
+        <div id="result-section" class="hidden space-y-4">
+            
+            <h2 class="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">Sản phẩm vừa thêm</h2>
+            
+            <div class="bg-[#161c24] border border-slate-800 rounded-2xl p-4 flex gap-4 items-center relative overflow-hidden">
+                <img id="prod-img" src="" class="w-20 h-20 object-cover rounded-xl bg-slate-800 border border-slate-700">
+                <div class="flex-1 min-w-0">
+                    <div class="bg-red-500/10 text-red-400 text-[10px] font-bold px-1.5 py-0.5 rounded w-max mb-1">Shopee</div>
+                    <p id="prod-name" class="text-sm font-bold text-white line-clamp-2 leading-tight"></p>
+                    <p id="prod-price" class="text-base font-black text-orange-500 mt-1"></p>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center px-1 pt-2">
+                <h2 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Mã giảm giá</h2>
+                <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full" id="time-decay">● 2s trước</span>
+            </div>
+
+            <div id="voucher-list" class="space-y-3">
+                </div>
+
+            <div class="grid grid-cols-3 gap-2 pt-2">
+                <button id="btn-fb" class="bg-[#1877f2] hover:opacity-90 text-white font-bold py-3.5 rounded-xl text-xs flex items-center justify-center gap-1">➡️ Mã FB</button>
+                <button id="btn-ytb" class="bg-[#ff0000] hover:opacity-90 text-white font-bold py-3.5 rounded-xl text-xs flex items-center justify-center gap-1">➡️ Mã YTB</button>
+                <button id="btn-ig" class="bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] hover:opacity-90 text-white font-bold py-3.5 rounded-xl text-xs flex items-center justify-center gap-1">➡️ Mã IG</button>
+            </div>
+
+            <div class="bg-[#161c24] border border-slate-800 rounded-xl p-3 text-[11px] text-slate-400 leading-relaxed">
+                <span class="text-amber-500 font-bold">Lưu ý:</span> Nếu click link không thấy mã Youtube/Facebook/Instagram ➡️ cần xóa xóa app Shopee tải lại hoặc đổi tài khoản khác do tài khoản của bạn đã bị lọc.
+            </div>
+        </div>
     </div>
-    
-    <div class="mt-3 text-xs text-slate-400">⚡ Chỉ nhận 1 link Shopee mỗi lần</div>
 
     <script src="app.js"></script>
 </body>
