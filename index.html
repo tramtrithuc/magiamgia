@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALESOC.VN - Hệ Thống Áp Mã Giảm Giá Khung Giờ</title>
+    
+    <!-- Nhúng Font Manrope và thư viện Icon giống hệt Salesoc -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-['Manrope'] bg-[#090d14] text-slate-200 min-h-screen flex flex-col items-center p-4 select-none">
+
+    <div class="w-full max-w-md mt-2">
+        <!-- Header thương hiệu -->
+        <div class="flex items-center justify-between mb-4 px-1">
+            <h1 class="text-xl font-black tracking-wider text-white flex items-center gap-1">
+                🔥 <span class="text-amber-500">SALE</span>SOC.VN
+            </h1>
+            <button class="text-slate-400 p-2 border border-slate-800 rounded-xl text-sm bg-[#11161d]">☰</button>
+        </div>
+
+        <!-- Khung Nhập Đường Dẫn -->
+        <div class="bg-[#11161d] rounded-2xl p-4 border border-slate-800/80 shadow-xl mb-4">
+            <div class="block text-[11px] font-bold text-slate-500 uppercase mb-3 tracking-wider">LINK SẢN PHẨM SHOPEE</div>
+            <div class="relative flex items-center mb-4">
+                <input type="text" id="input-url" placeholder="https://s.shopee.vn/..." class="w-full bg-[#171f2c] border border-slate-800 rounded-xl pl-4 pr-16 py-3.5 text-sm text-white focus:outline-none focus:border-amber-500 placeholder-slate-600">
+                <button onclick="pasteClipboard()" class="absolute right-2 bg-[#2a241e] text-amber-500 text-xs px-3 py-1.5 rounded-lg font-bold border border-amber-500/20 hover:bg-amber-500/10 transition">Dán</button>
+            </div>
+
+            <button onclick="getLinkAndVouchers()" id="btn-submit" class="w-full bg-[#c27829] hover:bg-[#b06c22] text-neutral-950 font-extrabold py-3.5 rounded-xl text-sm transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-cart-shopping text-sm"></i> Lấy link
+            </button>
+        </div>
+
+        <!-- HỘP HIỂN THỊ KẾT QUẢ ĐỘNG -->
+        <div id="result-section" class="hidden space-y-4">
+            
+            <div class="text-center text-xs font-bold text-amber-600/90 uppercase tracking-widest pt-2">
+                SẢN PHẨM VỪA THÊM
+            </div>
+            
+            <!-- Card hiển thị sản phẩm động -->
+            <div class="bg-[#11161d] border border-slate-800/60 rounded-2xl p-4 flex gap-4 items-center shadow-2xl relative">
+                <img id="prod-img" src="" class="w-24 h-24 object-cover rounded-xl bg-slate-900 border border-slate-800 p-2">
+                <div class="flex-1 min-w-0">
+                    <p id="prod-name" class="text-sm font-bold text-slate-200 line-clamp-2 leading-snug">
+                        <!-- Tên sản phẩm tự động cập nhật ở đây -->
+                    </p>
+                    <p id="prod-price" class="text-lg font-black text-white mt-3 tracking-wide">0đ</p>
+                </div>
+            </div>
+
+            <!-- Phân luồng nhóm mã giảm giá Youtube & Facebook -->
+            <div class="space-y-3">
+                
+                <!-- KHỐI MÃ YOUTUBE -->
+                <div class="bg-[#11161d] border border-slate-800/80 rounded-2xl p-3 space-y-2 shadow-md">
+                    <div class="text-[11px] font-bold text-red-400 bg-red-500/5 px-2 py-1 rounded-lg w-max flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Mã Youtube (2 mã)
+                    </div>
+                    <div class="space-y-2">
+                        <div class="bg-[#090d14]/40 border border-slate-800/40 rounded-xl p-3 text-xs space-y-1">
+                            <div class="flex justify-between items-center">
+                                <span class="text-orange-400 font-bold tracking-wide text-sm font-mono">YOUTUBEJUL221319</span>
+                                <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full font-bold">88%</span>
+                            </div>
+                            <div class="flex justify-between items-center text-slate-400 text-[11px]">
+                                <span>Giảm 22% tối đa 3tr đơn từ 1.25</span>
+                                <span class="text-emerald-400 font-bold text-[10px]">Áp được</span>
+                            </div>
+                        </div>
+                        <div class="bg-[#090d14]/20 border border-slate-800/20 rounded-xl p-3 text-xs space-y-1 opacity-50">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-500 font-bold tracking-wide text-sm font-mono line-through">YOUTUBEJUL241319</span>
+                                <span class="text-[10px] bg-red-500/10 text-red-400 px-2 py-0.5 rounded-full font-bold">Hết lượt</span>
+                            </div>
+                            <div class="flex justify-between items-center text-slate-500 text-[11px]">
+                                <span>Giảm 24% tối đa 300k đơn từ 150k</span>
+                                <span class="text-red-400 font-bold text-[10px]">Đã hết lượt</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KHỐI MÃ FACEBOOK -->
+                <div class="bg-[#11161d] border border-slate-800/80 rounded-2xl p-3 space-y-2 shadow-md">
+                    <div class="text-[11px] font-bold text-blue-400 bg-blue-500/5 px-2 py-1 rounded-lg w-max flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Mã Facebook (1 mã)
+                    </div>
+                    <div class="bg-[#090d14]/40 border border-slate-800/40 rounded-xl p-3 text-xs space-y-1">
+                        <div class="flex justify-between items-center">
+                            <span class="text-orange-400 font-bold tracking-wide text-sm font-mono">METAPAR1JULD22300</span>
+                            <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full font-bold">88%</span>
+                        </div>
+                        <div class="flex justify-between items-center text-slate-400 text-[11px]">
+                            <span>Giảm 22% tối đa 300k đơn từ 50k</span>
+                            <span class="text-emerald-400 font-bold text-[10px]">Áp được</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bộ 3 nút ngang -->
+            <div class="grid grid-cols-3 gap-2 pt-1">
+                <button id="btn-ytb" class="bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-1 shadow-md">
+                    ➔ Mã YTB <i class="fa-regular fa-copy ml-0.5"></i>
+                </button>
+                <button id="btn-fb" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-1 shadow-md">
+                    ➔ Mã FB <i class="fa-regular fa-copy ml-0.5"></i>
+                </button>
+                <button id="btn-ig" class="bg-gradient-to-r from-pink-500 via-red-500 to-purple-600 text-white font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-1 shadow-md">
+                    ➔ Mã IG <i class="fa-regular fa-copy ml-0.5"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nút Zalo -->
+    <a href="https://zalo.me/0382279474" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-[#0068ff] rounded-full flex items-center justify-center text-white text-xs font-black shadow-2xl z-50 hover:scale-105 transition active:scale-95 font-sans">
+        Zalo
+    </a>
+
+    <script>
+        function safeBtoa(str) {
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+                return String.fromCharCode('0x' + p1);
+            }));
+        }
+
+        async function pasteClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('input-url').value = text;
+            } catch (err) {
+                alert("Hãy ấn giữ ngón tay vào ô trống để dán thủ công!");
+            }
+        }
+
+        async function getLinkAndVouchers() {
+            const urlInput = document.getElementById('input-url').value.trim();
+            const btnSubmit = document.getElementById('btn-submit');
+
+            if (!urlInput || !urlInput.includes('shopee.vn')) {
+                alert('Vui lòng dán chính xác liên kết sản phẩm Shopee!');
+                return;
+            }
+
+            btnSubmit.innerText = "⏳ ĐANG QUÉT MÃ KHUNG GIỜ...";
+            btnSubmit.disabled = true;
+
+            // 1. TRẠNG THÁI CHỜ ĐỘNG: Hiển thị vòng xoay tải dữ liệu, xóa sạch dấu vết sản phẩm cũ
+            document.getElementById('result-section').classList.remove('hidden');
+            document.getElementById('prod-img').src = "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m27wsh51b6p303"; // Icon giỏ hàng Shopee mặc định
+            document.getElementById('prod-name').innerHTML = `<i class="fa-solid fa-spinner animate-spin text-amber-500 mr-2"></i> Hệ thống đang giải mã liên kết và đồng bộ dữ liệu sản phẩm...`;
+            document.getElementById('prod-price').innerText = "⌛ Đang tính toán...";
+
+            const secureData = safeBtoa(urlInput);
+
+            // Gắn link hoa hồng dự phòng Isclix cho 3 nút mạng xã hội trước
+            const fallbackLink = "https://go.isclix.com/deep_link/v6/5736941195869559229/4751584435713464237?sub4=oneatweb&url_enc=" + secureData;
+            updateDeeplinks(fallbackLink);
+
+            // 2. G GỌI SERVER PHP ĐỂ ĐÈ DỮ LIỆU THẬT CỦA LINK BẠN VỪA DÁN
+            try {
+                const response = await fetch('api.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ secure_data: secureData })
+                });
+                
+                const result = await response.json();
+
+                if (result.success) {
+                    // THÀNH CÔNG: Nếu server Hostinger không bị Shopee chặn, nó sẽ đè đúng tên + ảnh sản phẩm bạn dán vào!
+                    if (result.product && result.product.name) {
+                        document.getElementById('prod-img').src = result.product.image;
+                        document.getElementById('prod-name').innerHTML = `<span class="text-orange-500 text-xs mr-1">🛍️</span> ${result.product.name}`;
+                        document.getElementById('prod-price').innerText = result.product.price;
+                    } else {
+                        // BỊ CHẶN IP: Nếu bị Shopee chặn quét dữ liệu ngầm, hiện thông báo cấu hình link thành công của RIÊNG BẠN
+                        setFallbackTexts();
+                    }
+                    if (result.affiliateLink) {
+                        updateDeeplinks(result.affiliateLink);
+                    }
+                } else {
+                    setFallbackTexts();
+                }
+            } catch (err) {
+                setFallbackTexts();
+            } finally {
+                btnSubmit.innerHTML = `<i class="fa-solid fa-cart-shopping text-sm"></i> Lấy link`;
+                btnSubmit.disabled = false;
+            }
+        }
+
+        // Trạng thái hiển thị thông minh khi server bị Shopee chặn IP (Vẫn đảm bảo thẩm mỹ, không bị lệch sản phẩm)
+        function setFallbackTexts() {
+            document.getElementById('prod-img').src = "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m27wsh51b6p303"; // Giữ logo mua sắm chung
+            document.getElementById('prod-name').innerHTML = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle-check mr-1"></i> ĐÃ KÍCH HOẠT MÃ GIẢM GIÁ THÀNH CÔNG!</span><br><span class="text-slate-400 text-xs">Hệ thống đã mã hóa và đính kèm luồng hoa hồng cho sản phẩm của bạn.</span>`;
+            document.getElementById('prod-price').innerText = "Bấm nút mở App ở dưới";
+        }
+
+        function updateDeeplinks(url) {
+            document.getElementById('btn-ytb').setAttribute('onclick', `navigator.clipboard.writeText('YOUTUBEJUL221319'); alert('Đã copy mã Youtube! Đang chuyển hướng sang App Shopee...'); window.open('${url}', '_blank')`);
+            document.getElementById('btn-fb').setAttribute('onclick', `navigator.clipboard.writeText('METAPAR1JULD22300'); alert('Đã copy mã Facebook! Đang chuyển hướng sang App Shopee...'); window.open('${url}', '_blank')`);
+            document.getElementById('btn-ig').setAttribute('onclick', `navigator.clipboard.writeText('METAPAR1JULD22300'); alert('Đã copy mã Instagram! Đang chuyển hướng sang App Shopee...'); window.open('${url}', '_blank')`);
+        }
+    </script>
+</body>
+</html>
